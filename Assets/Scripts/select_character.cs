@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class select_character : MonoBehaviour
 {
 
-    private int i;
+    public static int i;
     private int currentCharacter;
 
     public GameObject[] AllCharacters;
@@ -49,6 +49,7 @@ public class select_character : MonoBehaviour
             }
             AllCharacters[i].SetActive(false);
             i++;
+            Debug.Log(i);
             AllCharacters[i].SetActive(true);
 
             if(currentCharacter == i)
@@ -74,6 +75,7 @@ public class select_character : MonoBehaviour
         {
             AllCharacters[i].SetActive(false);
             i--;
+            Debug.Log(i);
             AllCharacters[i].SetActive(true);
             ArrowRight.SetActive(true);
 
