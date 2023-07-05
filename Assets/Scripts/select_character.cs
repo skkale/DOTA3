@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,7 +8,7 @@ public class select_character : MonoBehaviour
 {
 
     public static int i;
-    private int currentCharacter;
+    public static int currentCharacter;
 
     public GameObject[] AllCharacters;
     public GameObject ArrowRight;
