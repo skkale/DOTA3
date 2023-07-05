@@ -6,8 +6,6 @@ public class first_person_movement : MonoBehaviour
 {
     [SerializeField] public float mvSpeed = 5f;
 
-    public float jopa = 0f;
-
     private Vector2 velocity;
 
     private void Update()
