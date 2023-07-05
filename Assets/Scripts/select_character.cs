@@ -114,7 +114,7 @@ public class select_character : MonoBehaviour
         if(PhotonNetwork.CountOfPlayersInRooms == 2)
         {
             SceneManager.LoadScene("Game");
-        }
+        } 
         
         
     }
