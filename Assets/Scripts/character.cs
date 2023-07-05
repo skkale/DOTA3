@@ -12,7 +12,6 @@ public class character : MonoBehaviour
     {
         i = PlayerPrefs.GetInt("CurrentCharacter");
         AllCharacters[i].SetActive(true);
-
     }
 
 }

@@ -3,12 +3,14 @@ using Photon.Pun;
 
 public class spawn : MonoBehaviour
 {
+    private int i = 1;
+    public GameObject[] AllCharacters;
     public GameObject[] spawns;
-    public GameObject Player;
 
     private void Awake()
     {
+        
         Vector3 randomPosition = spawns[Random.Range(0, spawns.Length)].transform.localPosition;
-        PhotonNetwork.Instantiate(Player.name, randomPosition, Quaternion.identity);
+        PhotonNetwork.Instantiate(AllCharacters[i].name, randomPosition, Quaternion.identity);
     }
 }
