@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 5552495336910378067}
   - component: {fileID: 3664436095970870983}
   - component: {fileID: 7218758155522396753}
+  - component: {fileID: 5956638802917984610}
   m_Layer: 0
   m_Name: Tesak
   m_TagString: Untagged
@@ -137,6 +138,33 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &5956638802917984610
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378276930248341557}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6994889628219750956
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,6 +287,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e76efcc803f3ad34187da378a0d39a57, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e76efcc803f3ad34187da378a0d39a57, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e76efcc803f3ad34187da378a0d39a57, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e76efcc803f3ad34187da378a0d39a57, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -298,6 +338,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e76efcc803f3ad34187da378a0d39a57, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e76efcc803f3ad34187da378a0d39a57, type: 3}
       propertyPath: m_Name
       value: FP_player(Gavnar)
@@ -321,16 +365,16 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e76efcc803f3ad34187da378a0d39a57, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4257142550647374084}
+      addedObject: {fileID: 1869144229140186352}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e76efcc803f3ad34187da378a0d39a57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1578159664233197232}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e76efcc803f3ad34187da378a0d39a57, type: 3}
       insertIndex: -1
       addedObject: {fileID: -1914051192272117613}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e76efcc803f3ad34187da378a0d39a57, type: 3}
       insertIndex: -1
       addedObject: {fileID: -1671665373889629056}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e76efcc803f3ad34187da378a0d39a57, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7907574017747542532}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e76efcc803f3ad34187da378a0d39a57, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2430126405054359103}
@@ -348,14 +392,37 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e76efcc803f3ad34187da378a0d39a57, type: 3}
   m_PrefabInstance: {fileID: 1338553446888062834}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &4257142550647374084
+--- !u!136 &1869144229140186352
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2184833600559383075}
+  m_Material: {fileID: 13400000, guid: 195fe9dff0febe84f9a03a444e870db0, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.6
+  m_Height: 3.7
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.85, z: 0}
+--- !u!65 &1578159664233197232
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2184833600559383075}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 195fe9dff0febe84f9a03a444e870db0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -367,8 +434,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.03, y: 2.83, z: 0.85}
-  m_Center: {x: 0, y: 1.42, z: 0}
+  m_Size: {x: 3.49, y: 0.36, z: 0.58}
+  m_Center: {x: 0, y: 1.97, z: 0}
 --- !u!54 &-1914051192272117613
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -408,23 +475,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1037e6718c1edaa4fb76100749151d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mvSpeed: 10
-  Camera: {fileID: 6994889628219750956}
-  scriptPlayerController: {fileID: -1671665373889629056}
---- !u!114 &7907574017747542532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2184833600559383075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c1a4bbcd4a474f449bcb1d660ecf86e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  mvSpeed: 7
   jumpStrength: 10
   maxGroundDistance: 0.3
+  Camera: {fileID: 6994889628219750956}
+  scriptPlayerController: {fileID: -1671665373889629056}
 --- !u!114 &2430126405054359103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,7 +522,7 @@ MonoBehaviour:
     InterpolateOption: 2
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 1
-    ExtrapolateOption: 0
+    ExtrapolateOption: 1
     ExtrapolateSpeed: 1
     ExtrapolateIncludingRoundTripTime: 1
     ExtrapolateNumberOfStoredPositions: 1
