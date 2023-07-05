@@ -92,7 +92,7 @@ public class select_character : MonoBehaviour
                 TextSelectCharatcer.SetActive(false);
             }
 
-            if (i == 0)
+            if (i <= 0)
             {
                 ArrowLeft.SetActive(false);
             }
