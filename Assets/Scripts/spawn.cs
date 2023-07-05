@@ -5,7 +5,7 @@ public class spawn : MonoBehaviour
 {
     public GameObject[] AllCharacters;
     public GameObject[] spawns;
-    public int o = select_character.currentCharacter;
+    static int o = select_character.currentCharacter;
 
     private void Awake()
     {
