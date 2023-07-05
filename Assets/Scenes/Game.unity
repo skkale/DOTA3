@@ -201,6 +201,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 68605c057907d0045ab830e6f61076c7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 225207607}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 68605c057907d0045ab830e6f61076c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 225207609}
   m_SourcePrefab: {fileID: 100100000, guid: 68605c057907d0045ab830e6f61076c7, type: 3}
 --- !u!1 &225207606 stripped
 GameObject:
@@ -255,6 +258,39 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.02, y: 0.020044487, z: 0.019999996}
   m_Center: {x: 0, y: 0.000022245102, z: 0}
+--- !u!114 &225207609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225207606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PositionModel:
+    SynchronizeEnabled: 1
+    TeleportEnabled: 1
+    TeleportIfDistanceGreaterThan: 3
+    InterpolateOption: 2
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 1
+    ExtrapolateOption: 0
+    ExtrapolateSpeed: 1
+    ExtrapolateIncludingRoundTripTime: 1
+    ExtrapolateNumberOfStoredPositions: 1
+  m_RotationModel:
+    SynchronizeEnabled: 1
+    InterpolateOption: 1
+    InterpolateRotateTowardsSpeed: 180
+    InterpolateLerpSpeed: 5
+  m_ScaleModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 0
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 0
 --- !u!1 &383583333
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,6 +898,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 68605c057907d0045ab830e6f61076c7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1208262003}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 68605c057907d0045ab830e6f61076c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1208262005}
   m_SourcePrefab: {fileID: 100100000, guid: 68605c057907d0045ab830e6f61076c7, type: 3}
 --- !u!1 &1208262002 stripped
 GameObject:
@@ -916,6 +955,39 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.02, y: 0.020044487, z: 0.019999996}
   m_Center: {x: 0, y: 0.000022245102, z: 0}
+--- !u!114 &1208262005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208262002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PositionModel:
+    SynchronizeEnabled: 1
+    TeleportEnabled: 1
+    TeleportIfDistanceGreaterThan: 3
+    InterpolateOption: 2
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 1
+    ExtrapolateOption: 0
+    ExtrapolateSpeed: 1
+    ExtrapolateIncludingRoundTripTime: 1
+    ExtrapolateNumberOfStoredPositions: 1
+  m_RotationModel:
+    SynchronizeEnabled: 1
+    InterpolateOption: 1
+    InterpolateRotateTowardsSpeed: 180
+    InterpolateLerpSpeed: 5
+  m_ScaleModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 0
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 0
 --- !u!1001 &1433584471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -994,6 +1066,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 68605c057907d0045ab830e6f61076c7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1433584473}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 68605c057907d0045ab830e6f61076c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1433584475}
   m_SourcePrefab: {fileID: 100100000, guid: 68605c057907d0045ab830e6f61076c7, type: 3}
 --- !u!1 &1433584472 stripped
 GameObject:
@@ -1048,6 +1123,39 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.02, y: 0.020044487, z: 0.019999996}
   m_Center: {x: 0, y: 0.000022245102, z: 0}
+--- !u!114 &1433584475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433584472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PositionModel:
+    SynchronizeEnabled: 1
+    TeleportEnabled: 1
+    TeleportIfDistanceGreaterThan: 3
+    InterpolateOption: 2
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 1
+    ExtrapolateOption: 0
+    ExtrapolateSpeed: 1
+    ExtrapolateIncludingRoundTripTime: 1
+    ExtrapolateNumberOfStoredPositions: 1
+  m_RotationModel:
+    SynchronizeEnabled: 1
+    InterpolateOption: 1
+    InterpolateRotateTowardsSpeed: 180
+    InterpolateLerpSpeed: 5
+  m_ScaleModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 0
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 0
 --- !u!1 &1891788802 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 27dc6f50cd398d6448ba99e5de61ad60, type: 3}
