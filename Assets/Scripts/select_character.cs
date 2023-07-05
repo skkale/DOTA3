@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class select_character : MonoBehaviour
 {
@@ -109,7 +110,12 @@ public class select_character : MonoBehaviour
 
     public void ChangeScene()
     {
-        SceneManager.LoadScene("Game");
+        if(PhotonNetwork.CountOfPlayersInRooms == 2)
+        {
+            SceneManager.LoadScene("Game");
+        }
+        
+        
     }
 
 }
