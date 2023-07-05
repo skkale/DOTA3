@@ -279,7 +279,7 @@ MonoBehaviour:
   - {fileID: 738416347}
   - {fileID: 790350356}
   - {fileID: 1123147432}
-  Player: {fileID: 3346884134574739132, guid: b1d2655c8cc9bb948a6517b1407d0a43, type: 3}
+  Player: {fileID: 1007644443994371968, guid: b1d2655c8cc9bb948a6517b1407d0a43, type: 3}
 --- !u!1 &578931539
 GameObject:
   m_ObjectHideFlags: 0
