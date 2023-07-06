@@ -35,7 +35,7 @@ public class NewBehaviourScript : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel("ChoosingCharacter");
+        PhotonNetwork.LoadLevel("Game");
     }
 
 }

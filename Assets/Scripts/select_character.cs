@@ -51,7 +51,6 @@ public class select_character : MonoBehaviour
             }
             AllCharacters[i].SetActive(false);
             i++;
-            Debug.Log(i);
             AllCharacters[i].SetActive(true);
 
             if(currentCharacter == i)
@@ -77,7 +76,6 @@ public class select_character : MonoBehaviour
         {
             AllCharacters[i].SetActive(false);
             i--;
-            Debug.Log(i);
             AllCharacters[i].SetActive(true);
             ArrowRight.SetActive(true);
 
@@ -108,10 +106,12 @@ public class select_character : MonoBehaviour
         TextSelectCharatcer.SetActive(true);
     }
 
+
     public void ChangeScene()
     {
-
+        if (ReadyButton.gameStarted) { 
         SceneManager.LoadScene("Game");   
+        }
     }
 
 
