@@ -110,13 +110,7 @@ public class select_character : MonoBehaviour
 
     public void ChangeScene()
     {
-        Debug.Log(PhotonNetwork.CountOfPlayersInRooms);
-        if(PhotonNetwork.CountOfPlayersInRooms == 2)
-        {
-            SceneManager.LoadScene("Game");
-        } // tvoya mama shlyuha
-        
-        
+            SceneManager.LoadScene("Game");   
     }
 
 }
