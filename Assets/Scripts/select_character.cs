@@ -110,7 +110,10 @@ public class select_character : MonoBehaviour
 
     public void ChangeScene()
     {
-            SceneManager.LoadScene("Game");   
+
+        SceneManager.LoadScene("Game");   
     }
+
+
 
 }
