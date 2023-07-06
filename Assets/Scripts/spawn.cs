@@ -11,12 +11,9 @@ public class spawn : MonoBehaviour
     private void Start()
     {
         
+
         Vector3 randomPosition = spawns[Random.Range(0, spawns.Length)].transform.localPosition;
         PhotonNetwork.Instantiate(AllCharacters[o].name, randomPosition, Quaternion.identity);
     }
-    private void Awake()
-    {
-        Vector3 randomPosition = spawns[Random.Range(0, spawns.Length)].transform.localPosition;
-        PhotonNetwork.Instantiate(AllCharacters[o].name, randomPosition, Quaternion.identity);
-    }
+   
 }
