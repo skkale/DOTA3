@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Pun.Demo.SlotRacer;
 
@@ -16,11 +19,10 @@ public class first_person_movement : MonoBehaviour
 
     private bool isground;
 
-
     PhotonView view;
     public GameObject Camera;
     public first_person_movement scriptPlayerController;
-   
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -47,4 +49,5 @@ public class first_person_movement : MonoBehaviour
             _rigidbody.AddForce(Vector3.up * 100 * jumpStrength);
 
     }
+
 }
