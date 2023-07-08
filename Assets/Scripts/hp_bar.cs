@@ -6,21 +6,23 @@ using UnityEngine.UI;
 public class hp_bar : MonoBehaviour
 {
     public float hp = 100f;
+    [SerializeField]
     public Image bar;
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.tag == "Death")
-    //    {
-    //        hp -= 5;
-    //        bar.fillAmount = hp / 100;
-    //        if (hp < 0)
-    //        {
-    //            Death();
-    //        }
-    //    }
-    //}
-    //private void Death()
-    //{
-    //    Destroy(gameObject);
-    //}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Death")
+        {
+            hp -= 5;
+            bar.fillAmount = hp / 100;
+            if (hp < 0)
+            {
+                Death();
+            }
+        }
+    }
+    private void Death()
+    {
+        Destroy(gameObject);
+    }
+
 }
