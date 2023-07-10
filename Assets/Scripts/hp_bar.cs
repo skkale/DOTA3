@@ -12,7 +12,7 @@ public class hp_bar : MonoBehaviour
     public Image bar;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Death" && view.IsMine)
+        if (other.gameObject.tag == "Death" && !view.IsMine)
         {
             hp -= 5;
             bar.fillAmount = hp / 100;
