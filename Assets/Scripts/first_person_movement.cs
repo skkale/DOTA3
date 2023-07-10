@@ -23,6 +23,7 @@ public class first_person_movement : MonoBehaviour
     public GameObject Camera;
     public first_person_movement scriptPlayerController;
 
+    // [SerializeField]
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -31,6 +32,7 @@ public class first_person_movement : MonoBehaviour
         view = GetComponent<PhotonView>();
         if(!view.IsMine) 
         {
+            //Destroy(ui)
             Camera.SetActive(false);
             scriptPlayerController.enabled = false;
         }
