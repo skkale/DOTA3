@@ -23,16 +23,16 @@ public class first_person_movement : MonoBehaviour
     public GameObject Camera;
     public first_person_movement scriptPlayerController;
 
-    // [SerializeField]
+    [SerializeField] GameObject ui;
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _groundCheckObject = GameObject.FindGameObjectWithTag("GroundCheck").transform;
 
         view = GetComponent<PhotonView>();
-        if(!view.IsMine) 
+        if(!view.IsMine ) 
         {
-            //Destroy(ui)
+            Destroy(ui);
             Camera.SetActive(false);
             scriptPlayerController.enabled = false;
         }
