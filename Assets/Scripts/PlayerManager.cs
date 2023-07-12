@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
     PhotonView view;
     public void Awake()
     {
-
+        view = GetComponent<PhotonView>();
     }
 
     void Start()
