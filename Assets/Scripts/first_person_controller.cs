@@ -1,9 +1,10 @@
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class first_person_contorller : MonoBehaviourPunCallbacks
+public class first_person_contorller : MonoBehaviourPunCallbacks, IDamagable
 {
     [SerializeField] public float mvSpeed = 5f;
     private Vector2 velocity;
@@ -28,18 +29,26 @@ public class first_person_contorller : MonoBehaviourPunCallbacks
 
     int itemIndex;
     int previousItemIndex = -1;
+
+    const float maxHealth = 100f;
+    public float currentHealth = maxHealth;
+    PlayerManager playerManager;
+    public Image bar;
+   
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _groundCheckObject = GameObject.FindGameObjectWithTag("GroundCheck").transform;
 
-        view = GetComponent<PhotonView>();
+        view = GetComponent<PhotonView>(); 
         if (!view.IsMine)
         {
             Destroy(ui);
             Camera.SetActive(false);
             scriptPlayerController.enabled = false;
         }
+
+        playerManager = PhotonView.Find((int)view.InstantiationData[0]).GetComponent<PlayerManager>();
     }
 
     private void Start()
@@ -51,7 +60,7 @@ public class first_person_contorller : MonoBehaviourPunCallbacks
     }
     private void Update()
     {
-        velocity.x = Input.GetAxis("Horizontal") * mvSpeed * Time.deltaTime;
+        velocity.x = Input.GetAxis("Horizontal") * mvSpeed * Time.deltaTime;   // пересування, керування
         velocity.y = Input.GetAxis("Vertical") * mvSpeed * Time.deltaTime;
 
         transform.Translate(velocity.x, 0f, velocity.y);
@@ -69,8 +78,31 @@ public class first_person_contorller : MonoBehaviourPunCallbacks
                 break;
             }
         }
+        if(Input.GetMouseButtonDown(0))
+        {
+            items[itemIndex].Use();
+        }
 
+        bar.fillAmount = currentHealth / 100;           // хапешка перенесена з іншого скрипта
+        
+        if (currentHealth < 1)
+        {
+            Death();
+        }
+        if (transform.position.y < -5f)
+        {
+            Death();
+        }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        view = GetComponent<PhotonView>();
+        if (other.gameObject.tag == "Death" && view.IsMine)
+        {
+            currentHealth -= 5;
+        }
+    }                                                   // закінчується тута
 
     void EquipItem(int _index)
     {
@@ -91,11 +123,34 @@ public class first_person_contorller : MonoBehaviourPunCallbacks
         }
     }
 
-    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps) // цей скрипт не працює, а має синхронізувати зброю в руках
     {
         if (!view.IsMine && targetPlayer == view.Owner)
         {
             EquipItem((int)changedProps["itemIndex"]);
         }
     }
+
+    public void TakeDamage(float damage)     // механіка стрільби
+    {
+        view.RPC("RPC_TakeDamage", RpcTarget.All, damage);  
+    }
+    [PunRPC]
+    void RPC_TakeDamage(float damage)
+    {
+        if(!view.IsMine)
+            return;
+            
+        Debug.Log("took damage " + damage);
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            Death();
+        }
+    }       
+    private void Death()
+        {
+        playerManager.Die();
+        }
+
 }
