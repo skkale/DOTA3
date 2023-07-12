@@ -35,30 +35,32 @@ public class first_person_contorller : MonoBehaviourPunCallbacks, IDamagable
     PlayerManager playerManager;
     public Image bar;
    
-    private void Awake()
+    void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _groundCheckObject = GameObject.FindGameObjectWithTag("GroundCheck").transform;
-
         view = GetComponent<PhotonView>(); 
+
         if (!view.IsMine)
         {
             Destroy(ui);
+            Destroy(_rigidbody);
             Camera.SetActive(false);
             scriptPlayerController.enabled = false;
+            //Destroy(GetComponentInChildren<Camera>().gameObject);
         }
 
         playerManager = PhotonView.Find((int)view.InstantiationData[0]).GetComponent<PlayerManager>();
     }
 
-    private void Start()
+    void Start()
     {
         if (view.IsMine)
         {
             EquipItem(0);
         }
     }
-    private void Update()
+    void Update()
     {
         velocity.x = Input.GetAxis("Horizontal") * mvSpeed * Time.deltaTime;   // пересування, керування
         velocity.y = Input.GetAxis("Vertical") * mvSpeed * Time.deltaTime;

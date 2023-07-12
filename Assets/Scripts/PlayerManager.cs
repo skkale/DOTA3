@@ -14,9 +14,7 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-            view = GetComponent<PhotonView>();
             CreateController();
-            
     }
     
     public GameObject[] AllCharacters;
