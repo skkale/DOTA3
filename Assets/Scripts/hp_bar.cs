@@ -17,10 +17,18 @@ public class hp_bar : MonoBehaviour
         {
             hp -= 5;
             bar.fillAmount = hp / 100;
-            if (hp < 0)
+            if (hp < 1)
             {
                 Death();
             }
+        }
+    }
+
+    private void Update()
+    {
+        if (transform.position.y < -5f)
+        {
+            Death();
         }
     }
     private void Death()

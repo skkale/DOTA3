@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class first_person_movement : MonoBehaviourPunCallbacks
+public class first_person_contorller : MonoBehaviourPunCallbacks
 {
     [SerializeField] public float mvSpeed = 5f;
     private Vector2 velocity;
@@ -23,7 +20,7 @@ public class first_person_movement : MonoBehaviourPunCallbacks
     PhotonView view;
     public GameObject Camera;
     public GameObject CameraHolder;
-    public first_person_movement scriptPlayerController;
+    public first_person_contorller scriptPlayerController;
 
     [SerializeField] GameObject ui;
 
@@ -37,7 +34,7 @@ public class first_person_movement : MonoBehaviourPunCallbacks
         _groundCheckObject = GameObject.FindGameObjectWithTag("GroundCheck").transform;
 
         view = GetComponent<PhotonView>();
-        if(!view.IsMine ) 
+        if (!view.IsMine)
         {
             Destroy(ui);
             Camera.SetActive(false);
@@ -55,16 +52,16 @@ public class first_person_movement : MonoBehaviourPunCallbacks
     private void Update()
     {
         velocity.x = Input.GetAxis("Horizontal") * mvSpeed * Time.deltaTime;
-        velocity.y = Input.GetAxis("Vertical") * mvSpeed * Time.deltaTime; 
+        velocity.y = Input.GetAxis("Vertical") * mvSpeed * Time.deltaTime;
 
-        transform.Translate(velocity.x, 0f,velocity.y);
+        transform.Translate(velocity.x, 0f, velocity.y);
 
         isground = Physics.Raycast(_groundCheckObject.transform.position, Vector3.down, maxGroundDistance);
 
         if (Input.GetButtonDown("Jump") && isground)
             _rigidbody.AddForce(Vector3.up * 100 * jumpStrength);
 
-        for(int i = 0; i< items.Length; i++)
+        for (int i = 0; i < items.Length; i++)
         {
             if (Input.GetKeyDown((i + 1).ToString()))
             {
@@ -77,14 +74,14 @@ public class first_person_movement : MonoBehaviourPunCallbacks
 
     void EquipItem(int _index)
     {
-        if(_index == previousItemIndex) return;
+        if (_index == previousItemIndex) return;
         itemIndex = _index;
         items[itemIndex].itemGameObject.SetActive(true);
         if (previousItemIndex != -1)
         {
             items[previousItemIndex].itemGameObject.SetActive(false);
         }
-        previousItemIndex= itemIndex;
+        previousItemIndex = itemIndex;
 
         if (view.IsMine)
         {
@@ -94,9 +91,9 @@ public class first_person_movement : MonoBehaviourPunCallbacks
         }
     }
 
-    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
-        if(!view.IsMine && targetPlayer == view.Owner)
+        if (!view.IsMine && targetPlayer == view.Owner)
         {
             EquipItem((int)changedProps["itemIndex"]);
         }

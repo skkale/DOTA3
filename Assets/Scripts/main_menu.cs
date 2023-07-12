@@ -3,7 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviourPunCallbacks
+public class main_menu : MonoBehaviourPunCallbacks
 {
     public InputField InputFieldNAMEROOM;
     public GameObject ErrorPanel;

@@ -23,10 +23,7 @@ public class firts_person_look : MonoBehaviour
     appliedMouseDelta = Vector2.Lerp(appliedMouseDelta, smoothMouseDelta, 1 / smooth);
     currentMouseLook += appliedMouseDelta;
     currentMouseLook.y = Mathf.Clamp(currentMouseLook.y, minClamp, maxClamp);
-
         character.localRotation = Quaternion.AngleAxis(currentMouseLook.x, Vector3.up);
         transform.localRotation = Quaternion.AngleAxis(-currentMouseLook.y, Vector3.right);
-
-
     }
 }
