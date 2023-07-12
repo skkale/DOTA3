@@ -14,11 +14,8 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-       if(view.IsMine)
-       {
             view = GetComponent<PhotonView>();
             CreateController();
-       }
             
     }
     
