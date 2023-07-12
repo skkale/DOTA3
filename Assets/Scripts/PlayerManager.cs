@@ -14,7 +14,11 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
+       // if (view.IsMine)
+        //{
             CreateController();
+        //}
+            
     }
     
     public GameObject[] AllCharacters;

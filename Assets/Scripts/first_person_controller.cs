@@ -55,6 +55,7 @@ public class first_person_contorller : MonoBehaviourPunCallbacks, IDamagable
 
     void Start()
     {
+    Cursor.lockState = CursorLockMode.Locked;
         if (view.IsMine)
         {
             EquipItem(0);
