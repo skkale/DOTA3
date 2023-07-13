@@ -14,26 +14,25 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-       // if (view.IsMine)
-        //{
+        if (view.IsMine)
+        {
             CreateController();
-        //}
-            
+        }
     }
-    
-    public GameObject[] AllCharacters;
-    public GameObject[] spawns;
-    static int o = select_character.currentCharacter;
+
+    //public GameObject[] AllCharacters;
+    //public GameObject[] spawns;
+    //static int o = select_character.currentCharacter;
     GameObject controller;
     void CreateController()
     {
-        Vector3 randomPosition = spawns[Random.Range(0, spawns.Length)].transform.localPosition;
-        controller = PhotonNetwork.Instantiate(AllCharacters[o].name, randomPosition, Quaternion.identity, 0, new object[] {view.ViewID});
+        //Vector3 randomPosition = spawns[Random.Range(0, spawns.Length)].transform.localPosition;
+        controller = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs","PlayerController"), Vector3.zero, Quaternion.identity, 0, new object[] { view.ViewID });
     }
-    
+
     public void Die()
     {
         PhotonNetwork.Destroy(controller);
-            CreateController();
+        CreateController();
     }
 }

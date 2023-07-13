@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MeleeGun
   m_EditorClassIdentifier: 
   ItemName: MeleeGun
-  damage: 25
+  damage: 2
