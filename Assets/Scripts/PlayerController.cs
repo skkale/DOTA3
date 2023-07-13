@@ -7,52 +7,35 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 {
-    [SerializeField] public float mvSpeed = 5f;
-    private Vector2 velocity;
-
     [SerializeField] GameObject cameraHolder;
-    [SerializeField] float mouseSensitivity;
+    [SerializeField] GameObject ui;
+    [SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime;
     float verticalLookRotation;
-
-
-    [SerializeField] public float jumpForce = 2f;
     Vector3 moveAmount;
-
+    Vector3 smoothMoveVelocity;
+    
+    PhotonView view;
     private Rigidbody _rigidbody;
     bool grounded;
 
     private bool isground;
 
-    PhotonView view;
-    public GameObject Camera;
-    public PlayerController scriptPlayerController;
-
-    [SerializeField] GameObject ui;
 
     [SerializeField] Item[] items;
-
     int itemIndex;
     int previousItemIndex = -1;
 
     const float maxHealth = 100f;
     public float currentHealth = maxHealth;
-    PlayerManager playerManager;
     public Image bar;
+    
+    PlayerManager playerManager;
+    
    
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
         view = GetComponent<PhotonView>();
-
-        if (!view.IsMine)
-        {
-            Destroy(ui);
-            Destroy(_rigidbody);
-            Camera.SetActive(false);
-            scriptPlayerController.enabled = false;
-            //Destroy(GetComponentInChildren<Camera>().gameObject);
-        }
-
         playerManager = PhotonView.Find((int)view.InstantiationData[0]).GetComponent<PlayerManager>();
     }
 
@@ -72,17 +55,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     }
     void Update()
     {
-        if (!view.IsMine)
+        if (!view.IsMine)   // пересування, керування
             return;
 
         Look();
         Jump();
-
-
-        velocity.x = Input.GetAxis("Horizontal") * mvSpeed * Time.deltaTime;   // пересування, керування
-        velocity.y = Input.GetAxis("Vertical") * mvSpeed * Time.deltaTime;
-
-        transform.Translate(velocity.x, 0f, velocity.y);
+        Move();
 
         for (int i = 0; i < items.Length; i++)
         {
@@ -109,6 +87,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         }
     }
 
+    void Move()
+    {
+        Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
+        moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed), ref smoothMoveVelocity, smoothTime);
+    }
     void Look()
     {
         transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * mouseSensitivity);
@@ -138,16 +121,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 
         _rigidbody.MovePosition(_rigidbody.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        view = GetComponent<PhotonView>();
-        if (other.gameObject.tag == "Death" && view.IsMine)
-        {
-            currentHealth -= 5;
-        }
-    }                                                   // закінчується тута
-
+                                                  
     void EquipItem(int _index)
     {
         if (_index == previousItemIndex) return;
@@ -167,7 +141,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         }
     }
 
-    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps) // цей скрипт не працює, а має синхронізувати зброю в руках
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
         if (!view.IsMine && targetPlayer == view.Owner)
         {
@@ -175,7 +149,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         }
     }
 
-    public void TakeDamage(float damage)     // механіка стрільби
+    public void TakeDamage(float damage)     // механіка стрільби і дамагу
     {
         view.RPC("RPC_TakeDamage", RpcTarget.All, damage);  
     }
@@ -191,7 +165,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         {
             Death();
         }
-    }       
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        view = GetComponent<PhotonView>();
+        if (other.gameObject.tag == "Death" && view.IsMine)
+        {
+            currentHealth -= 5;
+        }
+    }
     private void Death()
         {
         Destroy(gameObject);
