@@ -74,6 +74,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5616799726488260866}
   - component: {fileID: 6848546555658966124}
+  - component: {fileID: 6310621717226210249}
   m_Layer: 0
   m_Name: Rifle
   m_TagString: Untagged
@@ -111,7 +112,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: 886322cf52773a244b0beefed3c5c23e, type: 2}
   itemGameObject: {fileID: 1616280494298075352}
+  bulletImpactPrefab: {fileID: 8958231766262135940, guid: 7b87a50bf4323eb43a027f6ef6a33c79, type: 3}
   cam: {fileID: 4474786280652918214}
+--- !u!114 &6310621717226210249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2248408325653213139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &3373348728604939219
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,6 +223,7 @@ GameObject:
   - component: {fileID: 3331035339682346029}
   - component: {fileID: 4474786280652918214}
   - component: {fileID: 1146615796498349489}
+  - component: {fileID: 9093199643250198746}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -280,6 +305,66 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4686682693917668440}
   m_Enabled: 1
+--- !u!114 &9093199643250198746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4686682693917668440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 3331035339682346029}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 1
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!1 &4749073043669351548
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +546,7 @@ GameObject:
   m_Component:
   - component: {fileID: 901685919745173402}
   - component: {fileID: 3080845961403102718}
+  - component: {fileID: 307122004177146200}
   m_Layer: 0
   m_Name: Melee
   m_TagString: Untagged
@@ -498,7 +584,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: c3a8bc665aebdd148be777af5ba39a57, type: 2}
   itemGameObject: {fileID: 2141842359258621778}
+  bulletImpactPrefab: {fileID: 8958231766262135940, guid: 7b87a50bf4323eb43a027f6ef6a33c79, type: 3}
   cam: {fileID: 4474786280652918214}
+--- !u!114 &307122004177146200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5372500425739000672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &5378276930248341557
 GameObject:
   m_ObjectHideFlags: 0
