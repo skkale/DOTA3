@@ -30,8 +30,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     public Image bar;
     
     PlayerManager playerManager;
-    
-   
+
+    SingleShotGun flashswitch;
+
+
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
