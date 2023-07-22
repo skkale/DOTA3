@@ -17,7 +17,7 @@ public class ConnectScript : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedLobby()
     {
-        PhotonNetwork.NickName = "Player " + Random.Range(0, 1000).ToString("0000");
+       // PhotonNetwork.NickName = "Player " + Random.Range(0, 1000).ToString("0000");
         SceneManager.LoadScene("Menu");
     }
 }

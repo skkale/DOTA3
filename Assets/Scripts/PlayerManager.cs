@@ -4,9 +4,11 @@ using UnityEngine;
 using System.IO;
 using Photon.Pun;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviourPunCallbacks
 {
     PhotonView view;
+    static int i;
+    GameObject controller;
     public void Awake()
     {
         view = GetComponent<PhotonView>();
@@ -14,6 +16,7 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
+        i = PlayerPrefs.GetInt("SelectedCharacter");
         if (view.IsMine)
         {
             CreateController();
@@ -22,8 +25,7 @@ public class PlayerManager : MonoBehaviour
 
     //public GameObject[] AllCharacters;
     //public GameObject[] spawns;
-    static int i = Launcher.o;
-    GameObject controller;
+    
     void CreateController()
     {
         Debug.Log(i);
