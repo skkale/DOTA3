@@ -49,7 +49,11 @@ public class SingleShotGun : Gun
                     muzzleFlash.SetActive(true);
                     hit.collider.gameObject.GetComponent<IDamagable>()?.TakeDamage(((GunInfo)itemInfo).damage);
                     view.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
-                }
+        }
+        else
+        {
+            GetComponent<AudioSource>().PlayOneShot(((GunInfo)itemInfo).miss);
+        }
     }
 
     [PunRPC]

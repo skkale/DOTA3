@@ -18,6 +18,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] GameObject roomListItemPrefab;
     [SerializeField] GameObject PlayerListItemPrefab;
     [SerializeField] GameObject startGameButton;
+    public static int o = 0;
 
     private void Start()
     {
@@ -104,6 +105,15 @@ public class Launcher : MonoBehaviourPunCallbacks
                 continue;
             Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>().SetUp(roomList[i]);
         }
+    }
+
+    public void SelectCharacter1()
+    {
+        o = 0;
+    }
+    public void SelectCharacter2()
+    {
+        o = 1;
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)

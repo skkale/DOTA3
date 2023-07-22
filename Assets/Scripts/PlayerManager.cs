@@ -22,12 +22,13 @@ public class PlayerManager : MonoBehaviour
 
     //public GameObject[] AllCharacters;
     //public GameObject[] spawns;
-    //static int o = select_character.currentCharacter;
+    static int i = Launcher.o;
     GameObject controller;
     void CreateController()
     {
+        Debug.Log(i);
         Transform spawnpoint = SpawnManager.Instance.GetSpawnpoint();
-        controller = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs","PlayerController"), spawnpoint.position, spawnpoint.rotation, 0, new object[] { view.ViewID });
+        controller = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs","PlayerController"+i), spawnpoint.position, spawnpoint.rotation, 0, new object[] { view.ViewID });
     }
 
     public void Die()

@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0dd27fb6a00220a47b03deeb1bcf700f, type: 3}
-  m_Name: MeleeGun
+  m_Name: GoldenRifleGun
   m_EditorClassIdentifier: 
-  ItemName: MeleeGun
-  miss: {fileID: 8300000, guid: d3b5e6eec375f924890bcf58537675fa, type: 3}
-  fire: {fileID: 8300000, guid: 8957d13274c8e4d4997811f67847e862, type: 3}
-  damage: 35
+  ItemName: RifleGun
+  fire: {fileID: 8300000, guid: bcaabd29e95767b42aab698e3b78b443, type: 3}
+  damage: 50

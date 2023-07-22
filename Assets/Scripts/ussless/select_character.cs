@@ -109,9 +109,7 @@ public class select_character : MonoBehaviour
 
     public void ChangeScene()
     {
-        if (ReadyButton.gameStarted) { 
-        SceneManager.LoadScene("Game");  // скіп зразу на гру(без вибору) 
-        }
+        SceneManager.LoadScene("Game"); 
     }
 
 
