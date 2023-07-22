@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: MeleeGun
   m_EditorClassIdentifier: 
   ItemName: MeleeGun
-  muzzleFlash: {fileID: 765545417445079495, guid: 2b3368d9002f85d4989497ab9cc4f6fd, type: 3}
   fire: {fileID: 8300000, guid: 8957d13274c8e4d4997811f67847e862, type: 3}
-  damage: 2
+  damage: 35

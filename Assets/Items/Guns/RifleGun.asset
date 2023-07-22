@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: RifleGun
   m_EditorClassIdentifier: 
   ItemName: RifleGun
-  muzzleFlash: {fileID: 765545417445079495, guid: 2b3368d9002f85d4989497ab9cc4f6fd, type: 3}
   fire: {fileID: 8300000, guid: bcaabd29e95767b42aab698e3b78b443, type: 3}
-  damage: 50
+  damage: 4

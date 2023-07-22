@@ -31,7 +31,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     
     PlayerManager playerManager;
 
-    SingleShotGun flashswitch;
+    public AudioClip walk;
+
+    private float time;
 
 
     void Awake()
@@ -72,9 +74,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
                 break;
             }
         }
-        if(Input.GetMouseButtonDown(0))
+        
+        if ((time += Time.deltaTime) > 0.1f)
         {
-            items[itemIndex].Use();
+                if (Input.GetMouseButton(0))
+                {
+                time = 0.0f;
+                items[itemIndex].Use();
+                }
         }
 
         bar.fillAmount = currentHealth / 100;           // хапешка перенесена з іншого скрипта
@@ -93,6 +100,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     {
         Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
         moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed), ref smoothMoveVelocity, smoothTime);
+        //GetComponent<AudioSource>().PlayOneShot(walk);
     }
     void Look()
     {
