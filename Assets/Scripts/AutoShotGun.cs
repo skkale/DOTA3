@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Unity.VisualScripting;
+using Photon.Realtime;
 
 public class AutoShotGun : Gun
 {
@@ -20,7 +21,7 @@ public class AutoShotGun : Gun
     {
         if (Input.GetMouseButtonUp(0))
         {
-            muzzleFlash.SetActive(false);
+            view.RPC("MuzzleFlashOff", RpcTarget.All);
         }
     }
 
@@ -33,13 +34,24 @@ public class AutoShotGun : Gun
     {
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
         ray.origin = cam.transform.position;
-        GetComponent<AudioSource>().PlayOneShot(((GunInfo)itemInfo).fire);
-        muzzleFlash.SetActive(true);
+        view.RPC("MuzzleFlashOn", RpcTarget.All);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             hit.collider.gameObject.GetComponent<IDamagable>()?.TakeDamage(((GunInfo)itemInfo).damage);
             view.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
         }
+    }
+
+    [PunRPC]
+    void MuzzleFlashOn()
+    {
+        GetComponent<AudioSource>().PlayOneShot(((GunInfo)itemInfo).fire);
+        muzzleFlash.SetActive(true);
+    }
+    [PunRPC]
+    void MuzzleFlashOff()
+    {
+        muzzleFlash.SetActive(false);
     }
 
     [PunRPC]

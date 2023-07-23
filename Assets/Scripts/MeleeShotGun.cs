@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Unity.VisualScripting;
 
-public class SingleShotGun : Gun
+public class MeleeShotGun : Gun
 {
     [SerializeField] Camera cam;
     PhotonView view;
@@ -38,7 +38,7 @@ public class SingleShotGun : Gun
             canShoot= false;
         }
     }
-
+    [PunRPC]
     void Shoot()
     {
                 Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));

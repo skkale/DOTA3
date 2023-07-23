@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     PlayerManager playerManager;
 
     public AudioClip walk;
+    public AudioClip damagesound;
+    public AudioClip deathsound;
 
     private float time;
 
@@ -156,6 +158,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         if (!view.IsMine && targetPlayer == view.Owner)
         {
             EquipItem((int)changedProps["itemIndex"]);
+            // тут міг би бути мазл флеш
         }
     }
 
@@ -170,6 +173,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
             return;
             
         Debug.Log("took damage " + damage);
+        GetComponent<AudioSource>().PlayOneShot(damagesound);
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
@@ -182,6 +186,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         view = GetComponent<PhotonView>();
         if (other.gameObject.tag == "Death" && view.IsMine)
         {
+            GetComponent<AudioSource>().PlayOneShot(damagesound);
             currentHealth -= 5;
         }
     }
@@ -189,6 +194,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         {
         Destroy(gameObject);
         playerManager.Die();
-        }
+        GetComponent<AudioSource>().PlayOneShot(deathsound);
+    }
 
 }
