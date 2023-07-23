@@ -17,7 +17,7 @@ public class MeleeShotGun : Gun
         view = GetComponent<PhotonView>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if ((time += Time.deltaTime) > 1.0f)
         {

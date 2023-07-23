@@ -28,5 +28,6 @@ public class PlayerAnimator1 : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
             anim.SetTrigger("Run");
+
     }
 }
