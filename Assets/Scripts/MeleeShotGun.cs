@@ -26,7 +26,7 @@ public class MeleeShotGun : Gun
         }
         if (Input.GetMouseButtonUp(0))
         {
-            muzzleFlash.SetActive(false);
+            //muzzleFlash.SetActive(false);
         }
     }
 
@@ -35,7 +35,7 @@ public class MeleeShotGun : Gun
         if (canShoot)
         {
             Shoot();
-            canShoot= false;
+            canShoot = false;
         }
     }
     [PunRPC]
@@ -45,18 +45,28 @@ public class MeleeShotGun : Gun
                 ray.origin = cam.transform.position;
                 if (Physics.Raycast(ray, out RaycastHit hit, distance))
                 {
-                    GetComponent<AudioSource>().PlayOneShot(((GunInfo)itemInfo).fire);
-                    muzzleFlash.SetActive(true);
+                    view.RPC("HitSound", RpcTarget.All);
                     hit.collider.gameObject.GetComponent<IDamagable>()?.TakeDamage(((GunInfo)itemInfo).damage);
-                    view.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
+                     view.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
         }
         else
         {
-            GetComponent<AudioSource>().PlayOneShot(((GunInfo)itemInfo).miss);
+            view.RPC("MissSound", RpcTarget.All);
         }
     }
-
     [PunRPC]
+    void HitSound()
+    {
+     GetComponent<AudioSource>().PlayOneShot(((GunInfo)itemInfo).fire);
+     //muzzleFlash.SetActive(true);
+    }
+    [PunRPC]
+    void MissSound()
+    {
+        GetComponent<AudioSource>().PlayOneShot(((GunInfo)itemInfo).miss);
+    }
+
+        [PunRPC]
     void RPC_Shoot(Vector3 hitPosition, Vector3 hitNormal){
         Collider[] colliders = Physics.OverlapSphere(hitPosition, 0.3f);
         if(colliders.Length != 0){
