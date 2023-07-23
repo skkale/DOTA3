@@ -117,6 +117,16 @@ public class Launcher : MonoBehaviourPunCallbacks
         o = 1;
         PlayerPrefs.SetInt("SelectedCharacter", o);
     }
+    public void SelectCharacter3()
+    {
+        o = 2;
+        PlayerPrefs.SetInt("SelectedCharacter", o);
+    }
+    public void SelectCharacter4()
+    {
+        o = 3;
+        PlayerPrefs.SetInt("SelectedCharacter", o);
+    }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
