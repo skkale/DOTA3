@@ -19,7 +19,7 @@ public class MeleeShotGun : Gun
 
     private void Update()
     {
-        if ((time += Time.deltaTime) > 1.0f)
+        if ((time += Time.deltaTime) > 0.5f)
         {
             time = 0.0f;
             canShoot = true;

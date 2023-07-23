@@ -18,7 +18,7 @@ public class PunchAnimator : MonoBehaviour
         if (!view.IsMine)
             return;
 
-        if ((time += Time.deltaTime) > 1.0f && Input.GetMouseButton(0))
+        if ((time += Time.deltaTime) > 0.5f && Input.GetMouseButton(0))
         {
             time = 0.0f;
             anim.SetTrigger("Punch");

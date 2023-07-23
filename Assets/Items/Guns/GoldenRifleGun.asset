@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: GoldenRifleGun
   m_EditorClassIdentifier: 
   ItemName: RifleGun
+  miss: {fileID: 0}
   fire: {fileID: 8300000, guid: bcaabd29e95767b42aab698e3b78b443, type: 3}
-  damage: 50
+  damage: 20

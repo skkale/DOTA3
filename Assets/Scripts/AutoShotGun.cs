@@ -61,7 +61,7 @@ public class AutoShotGun : Gun
         if (colliders.Length != 0)
         {
             GameObject bulletImpactObj = Instantiate(bulletImpactPrefab, hitPosition + hitNormal * 0.001f, Quaternion.LookRotation(hitNormal, Vector3.up) * bulletImpactPrefab.transform.rotation);
-            Destroy(bulletImpactObj, 30f);
+            Destroy(bulletImpactObj, 15f);
             bulletImpactObj.transform.SetParent(colliders[0].transform);
         }
 
