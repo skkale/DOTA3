@@ -11,16 +11,16 @@ public class PlayerAnimator1 : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
             anim.SetTrigger("Run");
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
             anim.SetTrigger("Run");
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKey(KeyCode.S))
             anim.SetTrigger("Run");
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
             anim.SetTrigger("Run");
     }
 }
