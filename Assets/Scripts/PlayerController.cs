@@ -192,9 +192,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     }
     private void Death()
         {
+        GetComponent<AudioSource>().PlayOneShot(deathsound);
         Destroy(gameObject);
         playerManager.Die();
-        GetComponent<AudioSource>().PlayOneShot(deathsound);
     }
 
 }
