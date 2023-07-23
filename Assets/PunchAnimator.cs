@@ -13,7 +13,7 @@ public class PunchAnimator : MonoBehaviour
         view = GetComponent<PhotonView>();
         anim = GetComponent<Animator>();
     }
-    void FixedUpdate()
+    void Update()
     {
          if (!view.IsMine)
              return;
