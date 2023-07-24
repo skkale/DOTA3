@@ -668,15 +668,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraHolder: {fileID: 8325166313745078447}
   ui: {fileID: 4749073043669351548}
-  mouseSensitivity: 1.5
-  sprintSpeed: 15
+  mouseSensitivity: 1.2
+  sprintSpeed: 14
   walkSpeed: 10
   jumpForce: 20
   smoothTime: 0.08
   items:
   - {fileID: 5248329924189829647}
   - {fileID: 3080845961403102718}
-  currentHealth: 120
+  maxHealth: 150
+  currentHealth: 150
   bar: {fileID: 6548017292270716105}
   walk: {fileID: 8300000, guid: efcac1e68824d934ea799af8277eda5c, type: 3}
   damagesound: {fileID: 8300000, guid: 1f8cc439d6d630943b92c6ef33626f77, type: 3}
@@ -867,7 +868,7 @@ MonoBehaviour:
   m_PositionModel:
     SynchronizeEnabled: 1
     TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 1
+    TeleportIfDistanceGreaterThan: 5
     InterpolateOption: 2
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 1
@@ -953,7 +954,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a0f06b045b23ca4dacb8f3ece2fe1ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemInfo: {fileID: 11400000, guid: 886322cf52773a244b0beefed3c5c23e, type: 2}
+  itemInfo: {fileID: 11400000, guid: cc58a5bfb4b16a848878831dfbb387f3, type: 2}
   itemGameObject: {fileID: 1616280494298075352}
   bulletImpactPrefab: {fileID: 8958231766262135940, guid: 7b87a50bf4323eb43a027f6ef6a33c79, type: 3}
   cam: {fileID: 4474786280652918214}

@@ -668,7 +668,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraHolder: {fileID: 8325166313745078447}
   ui: {fileID: 4749073043669351548}
-  mouseSensitivity: 1.5
+  mouseSensitivity: 1.2
   sprintSpeed: 12
   walkSpeed: 6
   jumpForce: 20
@@ -676,6 +676,7 @@ MonoBehaviour:
   items:
   - {fileID: 5248329924189829647}
   - {fileID: 3080845961403102718}
+  maxHealth: 50
   currentHealth: 50
   bar: {fileID: 6548017292270716105}
   walk: {fileID: 8300000, guid: efcac1e68824d934ea799af8277eda5c, type: 3}

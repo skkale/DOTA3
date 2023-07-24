@@ -2,6 +2,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
@@ -25,8 +26,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     int itemIndex;
     int previousItemIndex = -1;
 
-    const float maxHealth = 100f;
-    public float currentHealth = maxHealth;
+    public float maxHealth = 100f;
+    public float currentHealth = 100f;
     public Image bar;
     
     PlayerManager playerManager;
@@ -86,7 +87,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
                 }
         }
 
-        bar.fillAmount = currentHealth / 100;           // хапешка перенесена з іншого скрипта
+        bar.fillAmount = currentHealth / maxHealth;           // хапешка перенесена з іншого скрипта
         
         if (currentHealth < 1)
         {
@@ -96,8 +97,22 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         {
             Death();
         }
-    }
 
+        // exit(beta)
+        if (view.IsMine && ( Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Backspace) ))
+        {
+            PhotonNetwork.LeaveRoom();
+            SceneManager.LoadScene("Menu");
+            //PhotonNetwork.Disconnect();
+            Cursor.lockState = CursorLockMode.None;
+            //Application.Quit();
+        }
+    }
+    public override void OnLeftRoom()
+    {
+        //UnityEngine.SceneManagement.SceneManager.LoadScene("LoadingMenu");
+        SceneManager.LoadScene("Menu");
+    }
     void Move()
     {
         Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
@@ -155,7 +170,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
-        if (!view.IsMine && targetPlayer == view.Owner)
+        if (changedProps.ContainsKey("itemIndex") && !view.IsMine && targetPlayer == view.Owner)
         {
             EquipItem((int)changedProps["itemIndex"]);
             // тут міг би бути мазл флеш
@@ -164,20 +179,18 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 
     public void TakeDamage(float damage)     // механіка стрільби і дамагу
     {
-        view.RPC("RPC_TakeDamage", RpcTarget.All, damage);  
+        view.RPC(nameof(RPC_TakeDamage), view.Owner, damage);  
     }
     [PunRPC]
-    void RPC_TakeDamage(float damage)
+    void RPC_TakeDamage(float damage, PhotonMessageInfo info)
     {
-        if(!view.IsMine)
-            return;
-            
         Debug.Log("took damage " + damage);
         GetComponent<AudioSource>().PlayOneShot(damagesound);
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
             Death();
+            PlayerManager.Find(info.Sender).GetKill();
         }
     }
 

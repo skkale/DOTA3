@@ -107,6 +107,11 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
     }
 
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
     public void SelectCharacter1()
     {
         o = 0;
