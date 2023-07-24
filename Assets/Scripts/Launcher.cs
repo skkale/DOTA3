@@ -21,6 +21,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] GameObject mapGameButton;
     public static int o = 0;
     public static int i = 0;
+    public static int j = 1; // всього сцен(по рахунку як масив)
 
     private void Start()
     {
