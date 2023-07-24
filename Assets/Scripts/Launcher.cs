@@ -18,7 +18,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] GameObject roomListItemPrefab;
     [SerializeField] GameObject PlayerListItemPrefab;
     [SerializeField] GameObject startGameButton;
+    [SerializeField] GameObject mapGameButton;
     public static int o = 0;
+    public static int i = 0;
 
     private void Start()
     {
@@ -58,6 +60,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
     
     startGameButton.SetActive(PhotonNetwork.IsMasterClient);
+    mapGameButton.SetActive(PhotonNetwork.IsMasterClient);
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)
@@ -73,8 +76,9 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
-        PhotonNetwork.LoadLevel("Game");
+        PhotonNetwork.LoadLevel("Game"+i);
     }
+
 
     public void LeaveRoom()
     {
@@ -131,6 +135,16 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         o = 3;
         PlayerPrefs.SetInt("SelectedCharacter", o);
+    }
+
+    public void SelectScene0()
+    {
+        i = 0;
+    }
+
+    public void SelectScene1()
+    {
+        i = 1;
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
