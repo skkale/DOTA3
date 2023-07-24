@@ -956,7 +956,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: 8070124c0e09dfd44808013984d9937a, type: 2}
   itemGameObject: {fileID: 1616280494298075352}
-  bulletImpactPrefab: {fileID: 8958231766262135940, guid: 7b87a50bf4323eb43a027f6ef6a33c79, type: 3}
+  bulletImpactPrefab: {fileID: 1223364054985255428, guid: e49302c68aa946247b58694a863c7b49, type: 3}
   cam: {fileID: 4474786280652918214}
   muzzleFlash: {fileID: 7338979477108453411}
 --- !u!114 &6310621717226210249
@@ -1863,7 +1863,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: c3a8bc665aebdd148be777af5ba39a57, type: 2}
   itemGameObject: {fileID: 2141842359258621778}
-  bulletImpactPrefab: {fileID: 8160153370663710042, guid: 66e5bee3b149f744e98e3b1e77466e70, type: 3}
+  bulletImpactPrefab: {fileID: 522278842238270523, guid: f0679132683dbc5439cfb4dc9c726fea, type: 3}
   cam: {fileID: 4474786280652918214}
   muzzleFlash: {fileID: 1384556780074282639}
 --- !u!82 &7699468612768089260
