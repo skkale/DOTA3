@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dd27fb6a00220a47b03deeb1bcf700f, type: 3}
+  m_Name: HnSMeleeHider
+  m_EditorClassIdentifier: 
+  ItemName: MeleeGun
+  miss: {fileID: 8300000, guid: d3b5e6eec375f924890bcf58537675fa, type: 3}
+  fire: {fileID: 8300000, guid: 54c4a2a0ea6ee3349af035b162c94dcd, type: 3}
+  damage: 5

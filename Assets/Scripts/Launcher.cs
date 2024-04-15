@@ -18,6 +18,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] GameObject roomListItemPrefab;
     [SerializeField] GameObject PlayerListItemPrefab;
     [SerializeField] GameObject startGameButton;
+    [SerializeField] GameObject changeGamemodeButton;
     [SerializeField] GameObject mapGameButton;
     public static int o = 0;
     public static int i = 0;
@@ -45,7 +46,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        MenuManager.Instance.OpenMenu("room");
+        MenuManager.Instance.OpenMenu("roomDM");
         roomNameText.text = PhotonNetwork.CurrentRoom.Name;
         
         Player[] players = PhotonNetwork.PlayerList;
@@ -59,7 +60,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             Instantiate(PlayerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
         }
-    
+    changeGamemodeButton.SetActive(PhotonNetwork.IsMasterClient);
     startGameButton.SetActive(PhotonNetwork.IsMasterClient);
     mapGameButton.SetActive(PhotonNetwork.IsMasterClient);
     }
@@ -67,6 +68,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
         startGameButton.SetActive(PhotonNetwork.IsMasterClient);
+        changeGamemodeButton.SetActive(PhotonNetwork.IsMasterClient);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -79,7 +81,10 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LoadLevel("Game"+i);
     }
-
+    public void ChangeMenu()
+    {
+        MenuManager.Instance.OpenMenu("roomHNS");
+    }
 
     public void LeaveRoom()
     {
@@ -137,6 +142,18 @@ public class Launcher : MonoBehaviourPunCallbacks
         o = 3;
         PlayerPrefs.SetInt("SelectedCharacter", o);
     }
+    public void SelectCharacterHider()
+    {
+        o = 4;
+        PlayerPrefs.SetInt("SelectedCharacter", o);
+    }
+    public void SelectCharacterSeeker()
+    {
+        o = 5;
+        PlayerPrefs.SetInt("SelectedCharacter", o);
+    }
+
+
 
     public void SelectScene0()
     {
@@ -147,6 +164,12 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         i = 1;
     }
+
+    public void SelectScene2()
+    {
+        i = 2;
+    }
+
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {

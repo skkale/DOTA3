@@ -102,8 +102,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         if (view.IsMine && ( Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Backspace) ))
         {
             PhotonNetwork.LeaveRoom();
+            PhotonNetwork.Disconnect();
             SceneManager.LoadScene("Menu");
-            //PhotonNetwork.Disconnect();
+            SceneManager.LoadScene("LoadingScene");
             Cursor.lockState = CursorLockMode.None;
             //Application.Quit();
         }
