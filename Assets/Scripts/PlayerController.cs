@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 {
     [SerializeField] GameObject cameraHolder;
     [SerializeField] GameObject ui;
+    [SerializeField] GameObject deathscreen;
     [SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime;
     float verticalLookRotation;
     Vector3 moveAmount;
@@ -48,7 +49,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 
     void Start()
     {
-    Cursor.lockState = CursorLockMode.Locked;
+        deathscreen.gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
         if (view.IsMine)
         {
             EquipItem(0);
@@ -91,10 +93,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         
         if (currentHealth < 1)
         {
+            deathscreen.gameObject.SetActive(true);
             Death();
         }
         if (transform.position.y < -5f)
         {
+            deathscreen.gameObject.SetActive(true);
             Death();
         }
 
@@ -190,6 +194,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
+            deathscreen.gameObject.SetActive(true);
             Death();
             PlayerManager.Find(info.Sender).GetKill();
         }
@@ -206,9 +211,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     }
     private void Death()
         {
+        deathscreen.gameObject.SetActive(true);
         GetComponent<AudioSource>().PlayOneShot(deathsound);
+        WaitFunc();
         Destroy(gameObject);
         playerManager.Die();
+    }
+
+    private void WaitFunc(){
+        Thread.Sleep(1000);
     }
 
 }

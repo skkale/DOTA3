@@ -20,17 +20,22 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] GameObject startGameButton;
     [SerializeField] GameObject changeGamemodeButton;
     [SerializeField] GameObject mapGameButton;
+    [SerializeField] GameObject HNSroleButton;
+    [SerializeField] GameObject DMcharacterButton;
+    //public string menuname;
     public static int o = 0;
     public static int i = 0;
     public static int j = 1; // всього сцен(по рахунку як масив)
 
     private void Start()
     {
+        HNSroleButton.SetActive(false);
         MenuManager.Instance.OpenMenu("title");
     }
 
     private void Awake()
     {
+       // menuname = "roomDM";
         Instance = this;
     }
 
@@ -42,6 +47,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
         PhotonNetwork.CreateRoom(roomNameInputField.text);
         MenuManager.Instance.OpenMenu("loading");
+        //menuname = "roomDM";
     }
 
     public override void OnJoinedRoom()
@@ -60,7 +66,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             Instantiate(PlayerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
         }
-    changeGamemodeButton.SetActive(PhotonNetwork.IsMasterClient);
+    //changeGamemodeButton.SetActive(PhotonNetwork.IsMasterClient);
     startGameButton.SetActive(PhotonNetwork.IsMasterClient);
     mapGameButton.SetActive(PhotonNetwork.IsMasterClient);
     }
@@ -81,10 +87,12 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LoadLevel("Game"+i);
     }
-    public void ChangeMenu()
-    {
-        MenuManager.Instance.OpenMenu("roomHNS");
-    }
+    [PunRPC]
+ //   public void RPC_ChangeMenuName()
+ //   {
+ //       menuname = "roomHNS";
+ //       MenuManager.Instance.OpenMenu("roomHNS");
+ //   }
 
     public void LeaveRoom()
     {
@@ -170,6 +178,16 @@ public class Launcher : MonoBehaviourPunCallbacks
         i = 2;
     }
 
+    public void DMgamemode() 
+    { 
+    HNSroleButton.gameObject.SetActive(false);
+    DMcharacterButton.gameObject.SetActive(true);
+    }
+    public void HNSgamemode()
+    {
+    HNSroleButton.gameObject.SetActive(true);
+    DMcharacterButton.gameObject.SetActive(false);
+    }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
