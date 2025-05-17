@@ -150,16 +150,16 @@ public class Launcher : MonoBehaviourPunCallbacks
         o = 3;
         PlayerPrefs.SetInt("SelectedCharacter", o);
     }
-    public void SelectCharacterHider()
-    {
-        o = 4;
-        PlayerPrefs.SetInt("SelectedCharacter", o);
-    }
-    public void SelectCharacterSeeker()
-    {
-        o = 5;
-        PlayerPrefs.SetInt("SelectedCharacter", o);
-    }
+    //public void SelectCharacterHider()
+    //{
+    //    o = 4;
+    //    PlayerPrefs.SetInt("SelectedCharacter", o);
+    //}
+    //public void SelectCharacterSeeker()
+    //{
+    //    o = 5;
+    //    PlayerPrefs.SetInt("SelectedCharacter", o);
+    //}
 
 
 
@@ -173,21 +173,21 @@ public class Launcher : MonoBehaviourPunCallbacks
         i = 1;
     }
 
-    public void SelectScene2()
-    {
-        i = 2;
-    }
+    //public void SelectScene2()
+    //{
+    //    i = 2;
+    //}
 
     public void DMgamemode() 
     { 
     HNSroleButton.gameObject.SetActive(false);
     DMcharacterButton.gameObject.SetActive(true);
     }
-    public void HNSgamemode()
-    {
-    HNSroleButton.gameObject.SetActive(true);
-    DMcharacterButton.gameObject.SetActive(false);
-    }
+    //public void HNSgamemode()
+    //{
+    //HNSroleButton.gameObject.SetActive(true);
+    //DMcharacterButton.gameObject.SetActive(false);
+    //}
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {

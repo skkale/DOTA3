@@ -219,7 +219,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     }
 
     private void WaitFunc(){
-        Thread.Sleep(1000);
+        //Thread.Sleep(1000);
     }
 
 }

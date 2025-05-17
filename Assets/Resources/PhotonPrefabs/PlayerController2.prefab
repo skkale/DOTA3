@@ -676,8 +676,8 @@ MonoBehaviour:
   items:
   - {fileID: 5248329924189829647}
   - {fileID: 3080845961403102718}
-  maxHealth: 150
-  currentHealth: 150
+  maxHealth: 300
+  currentHealth: 300
   bar: {fileID: 6548017292270716105}
   walk: {fileID: 8300000, guid: efcac1e68824d934ea799af8277eda5c, type: 3}
   damagesound: {fileID: 8300000, guid: 5a41d3d27a8dcc14185139cef0e6cbdb, type: 3}
