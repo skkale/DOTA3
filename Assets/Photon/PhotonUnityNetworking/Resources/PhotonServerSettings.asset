@@ -52,6 +52,7 @@ MonoBehaviour:
   - ChangeMenuName
   - RPC_ChangeMenuName
   - LeaveRoom
+  - DeathEffect
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

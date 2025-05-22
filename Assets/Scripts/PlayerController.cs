@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     [SerializeField] GameObject cameraHolder;
     [SerializeField] GameObject ui;
     [SerializeField] GameObject deathscreen;
+    [SerializeField] GameObject crosshair;
     [SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime;
     float verticalLookRotation;
     Vector3 moveAmount;
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 
     public float maxHealth = 100f;
     public float currentHealth = 100f;
+    public bool isDead = false;
     public Image bar;
     
     PlayerManager playerManager;
@@ -67,7 +69,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     {
         if (!view.IsMine)   // пересування, керування
             return;
-
+        if (isDead)
+            return;
         Look();
         Jump();
         Move();
@@ -210,6 +213,28 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
             currentHealth -= 5;
         }
     }
+    [PunRPC]
+    private void DeathEffect()
+    {
+        StartCoroutine(ShrinkAndDie());
+    }
+
+    private IEnumerator ShrinkAndDie()
+    {
+        float duration = 1f;
+        float elapsed = 0f;
+        Vector3 startScale = transform.localScale;
+        Vector3 endScale = Vector3.zero;
+
+        while (elapsed < duration)
+        {
+            transform.localScale = Vector3.Lerp(startScale, endScale, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localScale = endScale;
+    }
     private void Death()
     {
         StartCoroutine(DeathSequence());
@@ -217,10 +242,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 
     private IEnumerator DeathSequence()
     {
+        isDead = true; // блокування всіх дій!
+        crosshair.gameObject.SetActive(false);
         deathscreen.gameObject.SetActive(true);
         GetComponent<AudioSource>().PlayOneShot(deathsound);
-
-        yield return new WaitForSeconds(2f); // 2 секунди для показу екрану смерті
+        photonView.RPC("DeathEffect", RpcTarget.All);
+        yield return new WaitForSeconds(1f); // 2 секунди для показу екрану смерті
+        playerManager.Die();
+        Destroy(gameObject);
 
         playerManager.Die(); // тут створиться новий PlayerController
         Destroy(gameObject); // старий видаляється
