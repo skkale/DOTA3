@@ -5,6 +5,7 @@ using TMPro;
 using System.Collections.Generic;
 using Photon.Realtime;
 using System.Linq;
+using ExitGames.Client.Photon;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
@@ -24,8 +25,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] GameObject DMcharacterButton;
     //public string menuname;
     public static int o = 0;
-    public static int i = 0;
+    public int mapIndex = 0;
     public static int j = 1; // всього сцен(по рахунку як масив)
+    public int selectedMapIndex;
 
     private void Start()
     {
@@ -82,10 +84,23 @@ public class Launcher : MonoBehaviourPunCallbacks
         errorText.text = "Room Creation Failed " + message;
         MenuManager.Instance.OpenMenu("error");
     }
-
     public void StartGame()
     {
-        PhotonNetwork.LoadLevel("Game"+i);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            // зчитати mapIndex із Room Properties для надійності
+            object mapObj;
+            if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue("SelectedMap", out mapObj))
+            {
+                int selected = (int)mapObj;
+                PhotonNetwork.LoadLevel("Game" + selected);
+            }
+            else
+            {
+                // запасний варіант — брати зі своєї змінної
+                PhotonNetwork.LoadLevel("Game" + mapIndex);
+            }
+        }
     }
     [PunRPC]
  //   public void RPC_ChangeMenuName()
@@ -165,12 +180,21 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void SelectScene0()
     {
-        i = 0;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            mapIndex = 0;
+            Hashtable props = new Hashtable { { "SelectedMap", mapIndex } };
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        }
     }
-
     public void SelectScene1()
     {
-        i = 1;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            mapIndex = 1;
+            Hashtable props = new Hashtable { { "SelectedMap", mapIndex } };
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        }
     }
 
     //public void SelectScene2()

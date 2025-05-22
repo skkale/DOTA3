@@ -4,6 +4,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
@@ -210,16 +211,19 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         }
     }
     private void Death()
-        {
-        deathscreen.gameObject.SetActive(true);
-        GetComponent<AudioSource>().PlayOneShot(deathsound);
-        WaitFunc();
-        Destroy(gameObject);
-        playerManager.Die();
+    {
+        StartCoroutine(DeathSequence());
     }
 
-    private void WaitFunc(){
-        //Thread.Sleep(1000);
+    private IEnumerator DeathSequence()
+    {
+        deathscreen.gameObject.SetActive(true);
+        GetComponent<AudioSource>().PlayOneShot(deathsound);
+
+        yield return new WaitForSeconds(2f); // 2 секунди для показу екрану смерті
+
+        playerManager.Die(); // тут створиться новий PlayerController
+        Destroy(gameObject); // старий видаляється
     }
 
 }
