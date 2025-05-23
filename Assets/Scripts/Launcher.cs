@@ -197,10 +197,25 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
     }
 
-    //public void SelectScene2()
-    //{
-    //    i = 2;
-    //}
+    public void SelectScene2()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            mapIndex = 2;
+            Hashtable props = new Hashtable { { "SelectedMap", mapIndex } };
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        }
+    }
+
+    public void SelectScene3()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            mapIndex = 3;
+            Hashtable props = new Hashtable { { "SelectedMap", mapIndex } };
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        }
+    }
 
     public void DMgamemode() 
     { 
