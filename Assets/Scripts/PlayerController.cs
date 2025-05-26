@@ -92,6 +92,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
                 items[itemIndex].Use();
                 }
         }
+        if (Input.GetMouseButtonDown(0))
+            items[itemIndex].StartFireEffect();
+        if (Input.GetMouseButtonUp(0))
+            items[itemIndex].StopFireEffect();
 
         bar.fillAmount = currentHealth / maxHealth;           // хапешка перенесена з іншого скрипта
         

@@ -32,6 +32,7 @@ public class AutoShotGun : Gun
 
     void Shoot()
     {
+
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
         ray.origin = cam.transform.position;
         view.RPC("MuzzleFlashOn", RpcTarget.All);

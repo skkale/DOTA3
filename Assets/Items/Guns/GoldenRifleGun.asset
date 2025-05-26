@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dd27fb6a00220a47b03deeb1bcf700f, type: 3}
   m_Name: GoldenRifleGun
   m_EditorClassIdentifier: 
-  ItemName: RifleGun
+  ItemName: GOLDEN_AK
   miss: {fileID: 0}
   fire: {fileID: 8300000, guid: bcaabd29e95767b42aab698e3b78b443, type: 3}
-  damage: 20
+  damage: 25
