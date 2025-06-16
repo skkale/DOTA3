@@ -72,11 +72,10 @@ public class NyanShotGun : Gun
             // Трасер з ймовірністю 30%
             // if (Random.value < 0.3f)
             //    CreateTracer(muzzlePoint.position, hit.point);
-            Vector3 start = muzzlePoint.position;
-            Vector3 dir = cam.transform.forward;
-            view.RPC("ThrowTracer", RpcTarget.All, start, dir);
         }
-        
+        Vector3 start = muzzlePoint.position;
+        Vector3 dir = cam.transform.forward;
+        view.RPC("ThrowTracer", RpcTarget.All, start, dir);
     }
     [PunRPC]
     void ThrowTracer(Vector3 start, Vector3 dir)
@@ -111,6 +110,8 @@ public class NyanShotGun : Gun
     [PunRPC]
     void MuzzleFlashOn()
     {
+        float randomZ = Random.Range(0f, 360f);
+        muzzleFlash.transform.localRotation = Quaternion.Euler(0, 90, randomZ);
         muzzleFlash.SetActive(true);
     }
     [PunRPC]

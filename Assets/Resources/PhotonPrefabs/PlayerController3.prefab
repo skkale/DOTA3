@@ -1086,7 +1086,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 7639437034755055365}
   spreadAngle: 0.2
   nyanCatProjectilePrefab: {fileID: 3961875986823631046, guid: 35f1f78b93be0ce4e86b07f1462b8fd9, type: 3}
-  projectileSpeed: 40
+  projectileSpeed: 45
 --- !u!114 &6310621717226210249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3732,15 +3732,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2076219220496811105, guid: 64ab19d8524e3f84f9e8a2d2c7dd1fae, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.6044548
+      value: -3.608
       objectReference: {fileID: 0}
     - target: {fileID: 2076219220496811105, guid: 64ab19d8524e3f84f9e8a2d2c7dd1fae, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.135798
+      value: 4.041
       objectReference: {fileID: 0}
     - target: {fileID: 2076219220496811105, guid: 64ab19d8524e3f84f9e8a2d2c7dd1fae, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.1050842
+      value: 3.247
       objectReference: {fileID: 0}
     - target: {fileID: 2076219220496811105, guid: 64ab19d8524e3f84f9e8a2d2c7dd1fae, type: 3}
       propertyPath: m_LocalRotation.w

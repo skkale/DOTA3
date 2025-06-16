@@ -87,11 +87,14 @@ public class AutoShotGun : Gun
     void MuzzleFlashOn()
     {
         GetComponent<AudioSource>().PlayOneShot(((GunInfo)itemInfo).fire);
+        float randomZ = Random.Range(0f, 360f);
+        muzzleFlash.transform.localRotation = Quaternion.Euler(0, 90, randomZ);
         muzzleFlash.SetActive(true);
     }
     [PunRPC]
     void MuzzleFlashOff()
     {
+
         muzzleFlash.SetActive(false);
     }
 

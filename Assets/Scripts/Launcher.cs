@@ -10,6 +10,7 @@ using ExitGames.Client.Photon;
 public class Launcher : MonoBehaviourPunCallbacks
 {
     public static Launcher Instance;
+    private Dictionary<string, RoomInfo> cachedRoomList = new Dictionary<string, RoomInfo>();
 
     [SerializeField] TMP_InputField roomNameInputField;
     [SerializeField] TMP_Text errorText;
@@ -26,8 +27,11 @@ public class Launcher : MonoBehaviourPunCallbacks
     //public string menuname;
     public static int o = 0;
     public int mapIndex = 0;
-    public static int j = 1; // всього сцен(по рахунку як масив)
     public int selectedMapIndex;
+
+    float roomListUpdateTimer = 0f;
+    float roomListUpdateInterval = 2f; // раз на 2 секунди
+   // private List<RoomInfo> cachedRoomList = new List<RoomInfo>();
 
     private void Start()
     {
@@ -39,6 +43,26 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
        // menuname = "roomDM";
         Instance = this;
+    }
+
+    private void Update()
+    {
+        if (PhotonNetwork.InLobby)
+        {
+            roomListUpdateTimer += Time.deltaTime;
+            if (roomListUpdateTimer >= roomListUpdateInterval)
+            {
+                roomListUpdateTimer = 0f;
+                UpdateRoomListUI(); // просто перебудовуємо інтерфейс!
+            }
+        }
+        if (!PhotonNetwork.InLobby)
+            PhotonNetwork.JoinLobby();
+    }
+    public override void OnJoinedLobby()
+    {
+        cachedRoomList.Clear();
+        UpdateRoomListUI();
     }
 
     public void CreateRoom()
@@ -76,7 +100,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
         startGameButton.SetActive(PhotonNetwork.IsMasterClient);
-        changeGamemodeButton.SetActive(PhotonNetwork.IsMasterClient);
+        //changeGamemodeButton.SetActive(PhotonNetwork.IsMasterClient);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -128,15 +152,24 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        foreach(Transform trans in roomListContent)
+        foreach (RoomInfo info in roomList)
         {
-            Destroy(trans.gameObject);
+            if (info.RemovedFromList)
+                cachedRoomList.Remove(info.Name);
+            else
+                cachedRoomList[info.Name] = info;
         }
-        for (int i = 0; i < roomList.Count; i++)
+        UpdateRoomListUI();
+    }
+
+    void UpdateRoomListUI()
+    {
+        foreach (Transform trans in roomListContent)
+            Destroy(trans.gameObject);
+
+        foreach (var pair in cachedRoomList)
         {
-            if (roomList[i].RemovedFromList)
-                continue;
-            Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>().SetUp(roomList[i]);
+            Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>().SetUp(pair.Value);
         }
     }
 
