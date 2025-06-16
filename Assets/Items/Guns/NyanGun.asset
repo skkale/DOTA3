@@ -15,4 +15,4 @@ MonoBehaviour:
   ItemName: NyanGun
   miss: {fileID: 0}
   fire: {fileID: 8300000, guid: 7e152536419a0ae46b76b2d96158b82a, type: 3}
-  damage: 2
+  damage: 5

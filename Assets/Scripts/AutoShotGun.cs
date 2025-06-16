@@ -8,9 +8,12 @@ using Photon.Realtime;
 public class AutoShotGun : Gun
 {
     [SerializeField] Camera cam;
+    [SerializeField] GameObject tracerPrefab;
+    public Transform muzzlePoint;
     PhotonView view;
     public GameObject muzzleFlash;
-
+    public float spreadAngle = 2f;
+    private int shotCount = 0;
 
     void Awake()
     {
@@ -21,7 +24,8 @@ public class AutoShotGun : Gun
     {
         if (Input.GetMouseButtonUp(0))
         {
-            view.RPC("MuzzleFlashOff", RpcTarget.All);
+                shotCount = 0;
+                view.RPC("MuzzleFlashOff", RpcTarget.All);
         }
     }
 
@@ -32,15 +36,51 @@ public class AutoShotGun : Gun
 
     void Shoot()
     {
+        Vector3 direction;
+        if (shotCount == 0)
+        {
+            // ѕерший вистр≥л Ч ≥деально по центру
+            direction = cam.transform.forward;
+        }
+        else
+        {
+            // ≤нш≥ Ч з розбросом
+            direction = cam.transform.forward;
 
-        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
-        ray.origin = cam.transform.position;
+            // ƒодаЇмо невеликий розброс
+            direction = Quaternion.Euler(
+                Random.Range(-spreadAngle, spreadAngle), // X Ч вертикальний розброс
+                Random.Range(-spreadAngle, spreadAngle), // Y Ч горизонтальний розброс
+                0) * direction;
+        }
+        shotCount++;
+
+
+        Ray ray = new Ray(cam.transform.position, direction);
+
         view.RPC("MuzzleFlashOn", RpcTarget.All);
+
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             hit.collider.gameObject.GetComponent<IDamagable>()?.TakeDamage(((GunInfo)itemInfo).damage);
             view.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
+
+            // “расер з ймов≥рн≥стю 30%
+            if (Random.value < 0.3f)
+                view.RPC("CreateTracer", RpcTarget.All, muzzlePoint.position, hit.point);
         }
+    }
+    [PunRPC]
+    void CreateTracer(Vector3 from, Vector3 to)
+    {
+        GameObject tracer = Instantiate(tracerPrefab, from, Quaternion.identity);
+        LineRenderer lr = tracer.GetComponent<LineRenderer>();
+        if (lr != null)
+        {
+            lr.SetPosition(0, from);
+            lr.SetPosition(1, to);
+        }
+        Destroy(tracer, 0.2f); // ∆иве 0.2 сек, пот≥м зникаЇ
     }
 
     [PunRPC]

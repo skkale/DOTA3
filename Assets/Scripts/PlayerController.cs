@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     [SerializeField] GameObject ui;
     [SerializeField] GameObject deathscreen;
     [SerializeField] GameObject crosshair;
+    [SerializeField] GameObject healtbar;
     [SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime;
     float verticalLookRotation;
     Vector3 moveAmount;
@@ -39,6 +40,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     public AudioClip walk;
     public AudioClip damagesound;
     public AudioClip deathsound;
+
+    [SerializeField] private GameObject ragdollPrefab;
+    [SerializeField] private Color colorMaterial;
 
     private float time;
 
@@ -186,18 +190,20 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         if (changedProps.ContainsKey("itemIndex") && !view.IsMine && targetPlayer == view.Owner)
         {
             EquipItem((int)changedProps["itemIndex"]);
-            // тут міг би бути мазл флеш
         }
     }
 
-    public void TakeDamage(float damage)     // механіка стрільби і дамагу
+    public void TakeDamage(float damage)     // механіка дамагу
     {
+        if (isDead)
+            return;
         view.RPC(nameof(RPC_TakeDamage), view.Owner, damage);  
     }
     [PunRPC]
     void RPC_TakeDamage(float damage, PhotonMessageInfo info)
     {
-        Debug.Log("took damage " + damage);
+        if (isDead)
+            return;
         GetComponent<AudioSource>().PlayOneShot(damagesound);
         currentHealth -= damage;
         if (currentHealth <= 0)
@@ -220,25 +226,58 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     [PunRPC]
     private void DeathEffect()
     {
-        StartCoroutine(ShrinkAndDie());
+        //StartCoroutine(ShrinkAndDie());
+        SpawnRagdoll();
     }
-
-    private IEnumerator ShrinkAndDie()
+    [PunRPC]
+    private void SpawnRagdoll()
     {
-        float duration = 1f;
-        float elapsed = 0f;
-        Vector3 startScale = transform.localScale;
-        Vector3 endScale = Vector3.zero;
+        // Визначаємо позицію й ротацію
+        Vector3 pos = transform.position;
+        Quaternion rot = transform.rotation;
 
-        while (elapsed < duration)
-        {
-            transform.localScale = Vector3.Lerp(startScale, endScale, elapsed / duration);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
+            // Створюємо ragdoll prefab
+            GameObject ragdoll = Instantiate(ragdollPrefab, pos, rot);
 
-        transform.localScale = endScale;
+            foreach (var renderer in GetComponentsInChildren<Renderer>())
+            {
+                renderer.enabled = false;
+            }
+            // Задаємо колір ragdoll
+            foreach (var renderer in ragdoll.GetComponentsInChildren<MeshRenderer>())
+            {
+                renderer.material.color = colorMaterial;
+            }
+
+            // Додаємо сили частинам ragdoll
+            foreach (var rb in ragdoll.GetComponentsInChildren<Rigidbody>())
+            {
+                Vector3 forceDir = Random.onUnitSphere * Random.Range(5f, 12f);
+                rb.AddForce(forceDir, ForceMode.Impulse);
+            }
+
+            // Знищуємо ragdoll через 6 секунд
+            Destroy(ragdoll, 6f);
+       
     }
+    //[PunRPC]
+    //private IEnumerator ShrinkAndDie()
+    //{
+    //    float duration = 1f;
+    //    float elapsed = 0f;
+    //    Vector3 startScale = transform.localScale;
+    //    Vector3 endScale = Vector3.zero;
+    //    GetComponent<Rigidbody>().useGravity = false;
+    //    GetComponent<Rigidbody>().isKinematic = true;
+    //    while (elapsed < duration)
+    //    {
+    //        transform.localScale = Vector3.Lerp(startScale, endScale, elapsed / duration);
+    //        elapsed += Time.deltaTime;
+    //        yield return null;
+    //    }
+
+    //    transform.localScale = endScale;
+    //}
     private void Death()
     {
         StartCoroutine(DeathSequence());
@@ -248,15 +287,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     {
         isDead = true; // блокування всіх дій!
         crosshair.gameObject.SetActive(false);
+        healtbar.gameObject.SetActive(false);
         deathscreen.gameObject.SetActive(true);
         GetComponent<AudioSource>().PlayOneShot(deathsound);
         photonView.RPC("DeathEffect", RpcTarget.All);
+        //SpawnRagdoll();
         yield return new WaitForSeconds(1f); // 2 секунди для показу екрану смерті
-        playerManager.Die();
-        Destroy(gameObject);
-
         playerManager.Die(); // тут створиться новий PlayerController
         Destroy(gameObject); // старий видаляється
+            
     }
 
 }

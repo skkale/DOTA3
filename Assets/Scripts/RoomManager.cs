@@ -35,8 +35,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
-        // Припустимо, ти хочеш запускати PlayerManager тільки для ігрових сцен
-        // Можеш зробити перевірку по імені сцени:
         if (scene.name.StartsWith("Game"))
         {
             PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);

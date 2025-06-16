@@ -11,7 +11,7 @@ public class MeleeTaburetGun : Gun
     public GameObject muzzleFlash;
     private float time;
     private bool canShoot = false;
-    private float distance = 2;
+    private float distance = 3;
 
     void Awake(){
         view = GetComponent<PhotonView>();

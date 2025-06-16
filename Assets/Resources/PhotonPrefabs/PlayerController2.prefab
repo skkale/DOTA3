@@ -675,6 +675,7 @@ MonoBehaviour:
   ui: {fileID: 4749073043669351548}
   deathscreen: {fileID: 5576371154169554502}
   crosshair: {fileID: 6137696727205600797}
+  healtbar: {fileID: 7446178070207250555}
   mouseSensitivity: 1
   sprintSpeed: 6
   walkSpeed: 4
@@ -690,6 +691,8 @@ MonoBehaviour:
   walk: {fileID: 8300000, guid: efcac1e68824d934ea799af8277eda5c, type: 3}
   damagesound: {fileID: 8300000, guid: 5a41d3d27a8dcc14185139cef0e6cbdb, type: 3}
   deathsound: {fileID: 8300000, guid: 8fabbcc312bb57f46a16a49dfe9894bd, type: 3}
+  ragdollPrefab: {fileID: 8887463620350142531, guid: 9856685de7b55854aaff945852d9823f, type: 3}
+  colorMaterial: {r: 0.35686275, g: 0.7137255, b: 0.17254902, a: 0}
 --- !u!95 &1262351165644844151
 Animator:
   serializedVersion: 5
@@ -1079,7 +1082,10 @@ MonoBehaviour:
   itemGameObject: {fileID: 1616280494298075352}
   bulletImpactPrefab: {fileID: 1223364054985255428, guid: e49302c68aa946247b58694a863c7b49, type: 3}
   cam: {fileID: 4474786280652918214}
+  tracerPrefab: {fileID: 8588143776276693692, guid: 5d88daea9f2a68c40967148a62e7b2f2, type: 3}
+  muzzlePoint: {fileID: 8329054646397996421}
   muzzleFlash: {fileID: 7338979477108453411}
+  spreadAngle: 2.3
 --- !u!114 &6310621717226210249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3474,7 +3480,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: 24440cf06a0fed344869e859bb82bc56, type: 3}
 --- !u!1 &8116356468754936573 stripped
@@ -3501,7 +3507,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1550514412580984892, guid: 24440cf06a0fed344869e859bb82bc56, type: 3}
 --- !u!1 &8987494350863823624 stripped
@@ -3528,7 +3534,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4493585093827132993, guid: 24440cf06a0fed344869e859bb82bc56, type: 3}
 --- !u!1001 &8018247314144725476
@@ -3602,6 +3608,18 @@ PrefabInstance:
     - target: {fileID: 2076219220496811105, guid: 2b3368d9002f85d4989497ab9cc4f6fd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4203226681245349638, guid: 2b3368d9002f85d4989497ab9cc4f6fd, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4203226681245349638, guid: 2b3368d9002f85d4989497ab9cc4f6fd, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4203226681245349638, guid: 2b3368d9002f85d4989497ab9cc4f6fd, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3749,7 +3767,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1550514412580984892, guid: 27dc6f50cd398d6448ba99e5de61ad60, type: 3}
 --- !u!1 &654074340735410330 stripped
@@ -3776,7 +3794,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4493585093827132993, guid: 27dc6f50cd398d6448ba99e5de61ad60, type: 3}
 --- !u!1 &924133473465880775 stripped
@@ -3803,7 +3821,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 3613567641014311022, guid: 27dc6f50cd398d6448ba99e5de61ad60, type: 3}
 --- !u!1 &1732065670041783413 stripped
@@ -3830,7 +3848,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2212009239438826721, guid: 27dc6f50cd398d6448ba99e5de61ad60, type: 3}
 --- !u!1 &3548954460624463099 stripped
@@ -3857,7 +3875,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2504345457074934838, guid: 27dc6f50cd398d6448ba99e5de61ad60, type: 3}
 --- !u!1 &6658965773518311584 stripped
@@ -3884,7 +3902,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5769486934180388862, guid: 27dc6f50cd398d6448ba99e5de61ad60, type: 3}
 --- !u!1 &7219981286175289576 stripped
@@ -3911,7 +3929,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5053925668127403250, guid: 27dc6f50cd398d6448ba99e5de61ad60, type: 3}
 --- !u!1 &7255838562131993609 stripped
@@ -3938,7 +3956,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6195245291975648998, guid: 27dc6f50cd398d6448ba99e5de61ad60, type: 3}
 --- !u!1 &7860956210575805691 stripped
@@ -3965,7 +3983,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8678823145569952518, guid: 27dc6f50cd398d6448ba99e5de61ad60, type: 3}
 --- !u!4 &8525164416227952481 stripped
@@ -3997,6 +4015,6 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: 27dc6f50cd398d6448ba99e5de61ad60, type: 3}
