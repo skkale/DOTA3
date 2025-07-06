@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     [SerializeField] GameObject deathscreen;
     [SerializeField] GameObject crosshair;
     [SerializeField] GameObject healtbar;
-    [SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime;
+    [SerializeField] float sprintSpeed, walkSpeed, jumpForce, smoothTime;
+    private float mouseSensitivity;
     float verticalLookRotation;
     Vector3 moveAmount;
     Vector3 smoothMoveVelocity;
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         if (view.IsMine)
         {
             EquipItem(0);
+            mouseSensitivity = PlayerPrefs.GetFloat("MouseSensitivity", 2f);
         }
         else
         {
@@ -119,17 +121,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         {
             PhotonNetwork.LeaveRoom();
             PhotonNetwork.Disconnect();
+            Cursor.lockState = CursorLockMode.None;
             SceneManager.LoadScene("Menu");
             SceneManager.LoadScene("LoadingScene");
-            Cursor.lockState = CursorLockMode.None;
             //Application.Quit();
         }
     }
-    public override void OnLeftRoom()
-    {
-        //UnityEngine.SceneManagement.SceneManager.LoadScene("LoadingMenu");
-        SceneManager.LoadScene("Menu");
-    }
+
     void Move()
     {
         Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Photon.Realtime;
 using System.Linq;
 using ExitGames.Client.Photon;
+using UnityEngine.UI;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
@@ -24,6 +25,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] GameObject mapGameButton;
     [SerializeField] GameObject HNSroleButton;
     [SerializeField] GameObject DMcharacterButton;
+    [SerializeField] private Image mapPreviewImage;
+    [SerializeField] private Sprite[] mapSprites;
     //public string menuname;
     public static int o = 0;
     public int mapIndex = 0;
@@ -31,7 +34,8 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     float roomListUpdateTimer = 0f;
     float roomListUpdateInterval = 2f; // раз на 2 секунди
-   // private List<RoomInfo> cachedRoomList = new List<RoomInfo>();
+                                       // private List<RoomInfo> cachedRoomList = new List<RoomInfo>();
+    bool firstStart = true;
 
     private void Start()
     {
@@ -56,13 +60,23 @@ public class Launcher : MonoBehaviourPunCallbacks
                 UpdateRoomListUI(); // просто перебудовуємо інтерфейс!
             }
         }
-        if (!PhotonNetwork.InLobby)
-            PhotonNetwork.JoinLobby();
+        //if (!PhotonNetwork.InLobby)
+           // PhotonNetwork.JoinLobby();
     }
     public override void OnJoinedLobby()
     {
         cachedRoomList.Clear();
         UpdateRoomListUI();
+        object mapObj;
+        if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue("SelectedMap", out mapObj))
+        {
+            int selectedMap = (int)mapObj;
+            UpdateMapPreview(selectedMap);
+        }
+        else
+        {
+            mapPreviewImage.gameObject.SetActive(false);
+        }
     }
 
     public void CreateRoom()
@@ -71,9 +85,20 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             return;
         }
+
+        Hashtable roomProps = new Hashtable
+    {
+        { "GameMode", "DM" }, // або "HNS", як завгодно
+        { "SelectedMap", 0 }   // за замовчуванням можна і мапу
+    };
+
+        RoomOptions options = new RoomOptions
+        {
+            CustomRoomProperties = roomProps,
+            CustomRoomPropertiesForLobby = new string[] { "GameMode", "SelectedMap" }
+        };
         PhotonNetwork.CreateRoom(roomNameInputField.text);
         MenuManager.Instance.OpenMenu("loading");
-        //menuname = "roomDM";
     }
 
     public override void OnJoinedRoom()
@@ -92,15 +117,34 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             Instantiate(PlayerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
         }
-    //changeGamemodeButton.SetActive(PhotonNetwork.IsMasterClient);
+    changeGamemodeButton.SetActive(PhotonNetwork.IsMasterClient);
     startGameButton.SetActive(PhotonNetwork.IsMasterClient);
     mapGameButton.SetActive(PhotonNetwork.IsMasterClient);
+        UpdateMapPreview(0);
+
+        object gm;
+        if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue("GameMode", out gm))
+        {
+            string gameMode = (string)gm;
+            if (gameMode == "DM")
+            {
+                MenuManager.Instance.OpenMenu("roomDM");
+                HNSroleButton.SetActive(false);
+                DMcharacterButton.SetActive(true);
+            }
+            else if (gameMode == "HNS")
+            {
+                MenuManager.Instance.OpenMenu("roomHNS");
+                HNSroleButton.SetActive(true);
+                DMcharacterButton.SetActive(false);
+            }
+        }
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
         startGameButton.SetActive(PhotonNetwork.IsMasterClient);
-        //changeGamemodeButton.SetActive(PhotonNetwork.IsMasterClient);
+        changeGamemodeButton.SetActive(PhotonNetwork.IsMasterClient);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -161,8 +205,52 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
         UpdateRoomListUI();
     }
+    public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+    {
+        if (propertiesThatChanged.ContainsKey("GameMode"))
+        {
+            string gameMode = (string)PhotonNetwork.CurrentRoom.CustomProperties["GameMode"];
 
-    void UpdateRoomListUI()
+            // Оновлюємо UI відповідно до нового режиму
+            if (gameMode == "DM")
+            {
+                MenuManager.Instance.OpenMenu("roomDM");
+                HNSroleButton.SetActive(false);
+                DMcharacterButton.SetActive(true);
+            }
+            else if (gameMode == "HNS")
+            {
+                MenuManager.Instance.OpenMenu("roomHNS");
+                HNSroleButton.SetActive(true);
+                DMcharacterButton.SetActive(false);
+            }
+        }
+        
+        if (propertiesThatChanged.ContainsKey("SelectedMap"))
+        {
+            int selectedMap = (int)PhotonNetwork.CurrentRoom.CustomProperties["SelectedMap"];
+            UpdateMapPreview(selectedMap);
+        }
+    }
+    private void UpdateMapPreview(int mapIndex)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            mapPreviewImage.gameObject.SetActive(false);
+            return;
+        }
+        if (mapIndex >= 0 && mapIndex < mapSprites.Length)
+        {
+            mapPreviewImage.sprite = mapSprites[mapIndex];
+            mapPreviewImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            mapPreviewImage.gameObject.SetActive(false);
+        }
+    }
+
+        void UpdateRoomListUI()
     {
         foreach (Transform trans in roomListContent)
             Destroy(trans.gameObject);
@@ -198,16 +286,16 @@ public class Launcher : MonoBehaviourPunCallbacks
         o = 3;
         PlayerPrefs.SetInt("SelectedCharacter", o);
     }
-    //public void SelectCharacterHider()
-    //{
-    //    o = 4;
-    //    PlayerPrefs.SetInt("SelectedCharacter", o);
-    //}
-    //public void SelectCharacterSeeker()
-    //{
-    //    o = 5;
-    //    PlayerPrefs.SetInt("SelectedCharacter", o);
-    //}
+    public void SelectCharacterHider()
+    {
+        o = 4;
+        PlayerPrefs.SetInt("SelectedCharacter", o);
+    }
+    public void SelectCharacterSeeker()
+    {
+        o = 5;
+        PlayerPrefs.SetInt("SelectedCharacter", o);
+    }
 
 
 
@@ -249,17 +337,32 @@ public class Launcher : MonoBehaviourPunCallbacks
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
     }
+    public void SelectScene4()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            mapIndex = 4;
+            Hashtable props = new Hashtable { { "SelectedMap", mapIndex } };
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        }
+    }
 
     public void DMgamemode() 
     { 
-    HNSroleButton.gameObject.SetActive(false);
-    DMcharacterButton.gameObject.SetActive(true);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Hashtable props = new Hashtable { { "GameMode", "DM" } };
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        }
     }
-    //public void HNSgamemode()
-    //{
-    //HNSroleButton.gameObject.SetActive(true);
-    //DMcharacterButton.gameObject.SetActive(false);
-    //}
+    public void HNSgamemode()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Hashtable props = new Hashtable { { "GameMode", "HNS" } };
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        }
+    }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {

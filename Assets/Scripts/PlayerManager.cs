@@ -51,10 +51,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
 
-    public void Quit()
-    {
-        PhotonNetwork.Destroy(controller);
-    }
+    //public void Quit()
+    //{
+    //    PhotonNetwork.Destroy(controller);
+    //}
 
     public void GetKill()
     {
@@ -74,5 +74,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     public static PlayerManager Find(Player player)
     {
         return FindObjectsOfType<PlayerManager>().SingleOrDefault(x => x.view.Owner == player);
+    }
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        if (NotificationManager.Instance != null)
+        {
+            NotificationManager.Instance.ShowNotification($"{otherPlayer.NickName} left the room");
+        }
     }
 }
